@@ -8,7 +8,7 @@ Chef::Config.from_file("/etc/chef/client.rb")
 
 # RightAWS helpers
 def aws
-  @@aws ||= Chef::EncryptedDataBagItem.load("aws", "main")
+  @@aws ||= Chef::EncryptedDataBagItem.load("aws", Chef::Config[:environment])
 end
 
 def find_snapshot_id(volume_id)
