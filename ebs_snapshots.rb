@@ -15,7 +15,7 @@ def find_snapshot_id(volume_id)
   snapshot_id = nil
 
   ec2.describe_snapshots.sort { |a, b| b[:aws_started_at] <=> a[:aws_started_at] }.reverse_each do |snapshot|
-    if snapshot[:aws_volume_id] == volume_id
+    if snapshot[:aws_volume_id] == volume_id && snapshot[:aws_status] == "completed"
       Chef::Log.debug("Snapshot for #{volume_id} is #{snapshot[:aws_volume_id]}")
       snapshot_id = snapshot[:aws_id]
     end
